@@ -37,7 +37,7 @@ export const LoginScreen = () => {
             </p>
         </div>
       </div>
-      <Link to="/auth/register">Create new account</Link>
+      <Link className="link" to="/auth/register">Create new account</Link>
     </React.Fragment>
   );
 };
