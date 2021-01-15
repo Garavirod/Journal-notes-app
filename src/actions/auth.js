@@ -4,6 +4,7 @@ import { types } from "../types/types";
 /* MIDDLEWARES */
 export const startLoginEmailPass = (email,password) =>{
     return ( dispatch ) => {
+        // An action is executed when middleware is done
         setTimeout(()=>{
             dispatch( login(123,'Rodrigo'));
         },3000);
