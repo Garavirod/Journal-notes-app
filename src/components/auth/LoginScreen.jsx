@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { startLoginEmailPass } from "../../actions/auth";
+import { startGoogleLogin, startLoginEmailPass } from "../../actions/auth";
 import { useForm } from "../../hooks/useForm";
 import { useDispatch } from "react-redux";
 
@@ -29,6 +29,11 @@ export const LoginScreen = () => {
     dispatch( startLoginEmailPass(email,password));
   };
 
+
+  const handleGoogleLogin = () => {
+    dispatch( startGoogleLogin() );
+  }
+
   return (
     <React.Fragment>
       <h3 className="auth__title">Login</h3>
@@ -55,7 +60,7 @@ export const LoginScreen = () => {
       {/* GOOGLE AUTH */}
       <div className="auth__social-networks">
         <p>Login with social network</p>
-        <div className="google-btn">
+        <div className="google-btn" onClick={handleGoogleLogin}>
             <div className="google-icon-wrapper">
             <img
                 className="google-icon"
