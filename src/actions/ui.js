@@ -6,5 +6,5 @@ export const setError = (err) => ({
 })
 export const removeError = () => ({
     type: types.uiRemoveError,
-    payload: ''
+    payload: null
 })

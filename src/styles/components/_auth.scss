@@ -52,9 +52,9 @@
 }
 
 .auth__alert-errors{
-    background-color: red;
+    border: solid 1px rgb(250, 128, 128);
     border-radius: 5px;
-    color: white;
+    color: rgb(250, 128, 128);
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
