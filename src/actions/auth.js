@@ -6,14 +6,19 @@ import { firebase, googleAuthProvider } from '../firebase/firebase-config';
 export const startLoginEmailPass = (email,password) =>{
     return ( dispatch ) => {
         // An action is executed when middleware is done
-        setTimeout(()=>{
-            dispatch( login(123,'Rodrigo'));
-        },3000);
+        firebase.auth().signInWithEmailAndPassword(email,password)
+        .then(response =>{
+            const {displayName, uid} = response.user;
+            dispatch( login(uid,displayName));
+        })
+        .catch(err =>{
+            console.log("Error on login");
+        })
     }
 }
 
 export const startRegisterWithEmailPsd = ( email, password, name) =>{
-    /* thumb me dispone del dispatch para realizar tareas asicnronas */
+    /* thunk me dispone del dispatch para realizar tareas asicnronas */
     return ( dispatch ) => {
         firebase.auth().createUserWithEmailAndPassword( email, password)
         .then( async ({user}) =>{
