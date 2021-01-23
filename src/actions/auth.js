@@ -12,6 +12,21 @@ export const startLoginEmailPass = (email,password) =>{
     }
 }
 
+export const startRegisterWithEmailPsd = ( email, password, name) =>{
+    /* thumb me dispone del dispatch para realizar tareas asicnronas */
+    return ( dispatch ) => {
+        firebase.auth().createUserWithEmailAndPassword( email, password)
+        .then( async ({user}) =>{
+            await user.updateProfile({displayName:name});
+            dispatch ( login(user.uid, user.displayName) )
+            console.log(user);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+}
+
 
 export const startGoogleLogin = () => {
     return ( dispatch ) => {
