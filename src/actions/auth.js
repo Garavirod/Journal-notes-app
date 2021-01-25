@@ -1,17 +1,22 @@
 import { types } from "../types/types";
 import { firebase, googleAuthProvider } from '../firebase/firebase-config';
+import { uiSrartLoadingSte, uiFinishLoadingSte } from "./ui";
+
 
 
 /* MIDDLEWARES */
 export const startLoginEmailPass = (email,password) =>{
     return ( dispatch ) => {
         // An action is executed when middleware is done
+        dispatch(uiSrartLoadingSte());
         firebase.auth().signInWithEmailAndPassword(email,password)
         .then(response =>{
             const {displayName, uid} = response.user;
             dispatch( login(uid,displayName));
+            dispatch(uiFinishLoadingSte());
         })
         .catch(err =>{
+            dispatch(uiFinishLoadingSte());
             console.log("Error on login");
         })
     }

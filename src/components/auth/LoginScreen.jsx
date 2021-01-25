@@ -2,19 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { startGoogleLogin, startLoginEmailPass } from "../../actions/auth";
 import { useForm } from "../../hooks/useForm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const LoginScreen = () => {
 
   /* redux dispathcer*/
   const dispatch = useDispatch();
 
-
+  /* Extract a property from reducer ui */
+  const { loading } = useSelector(state => state.ui)
   /* custom hook form */
   const [formvalues, handleInputChange] = useForm(
     {
-      email:'rga@gamil.com',
-      password:'asdfghj123',
+      email:'gara2@gmail.com',
+      password:'123456',
     }
   );
 
@@ -55,7 +56,7 @@ export const LoginScreen = () => {
           value={password}
           onChange={handleInputChange}
         />
-        <button type="submit" className="btn btn-primary btn-block">login</button>
+        <button disabled={loading} type="submit" className="btn btn-primary btn-block">login</button>
       </form>      
       {/* GOOGLE AUTH */}
       <div className="auth__social-networks">
