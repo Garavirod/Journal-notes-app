@@ -22,6 +22,15 @@ export const startLoginEmailPass = (email,password) =>{
     }
 }
 
+
+export const StartlogOut = ( dispatch ) => {
+    return async ( dispatch ) => {
+        await firebase.auth().signOut();
+        dispatch(logout());
+    }
+}
+
+
 export const startRegisterWithEmailPsd = ( email, password, name) =>{
     /* thunk me dispone del dispatch para realizar tareas asicnronas */
     return ( dispatch ) => {
@@ -61,3 +70,8 @@ export const login = (uid, displayName) => ({
     }
     
 })
+export const logout = () => ({
+    type: types.logout,
+})
+
+
