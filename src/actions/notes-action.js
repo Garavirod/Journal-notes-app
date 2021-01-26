@@ -1,6 +1,8 @@
 import { db } from "../firebase/firebase-config";
 import { types } from "../types/types";
 
+
+/* Asyncrunus actions */
   export const newEntryAction = () => {
       return async (dispatch, getState) => {
         const uid = getState().auth.uid;
@@ -14,6 +16,20 @@ import { types } from "../types/types";
         const docRef = await db.collection(`${ uid }/journal/notes`).add(newNote);
         dispatch(activeNote(docRef.id, newNote));
       }
+  }
+
+  export const startLoadingNotes = (uid) => {
+    return async (dispatch) => {
+        const noteSnaphot = await db.collection(`${uid}/journal/notes`).get();
+        const notes = [];
+        noteSnaphot.forEach(noteChild => {
+            notes.push({
+                id: noteChild.id,
+                ...noteChild.data()
+            })
+        })
+        dispatch(setNote(notes));
+    }
   }
 
 
