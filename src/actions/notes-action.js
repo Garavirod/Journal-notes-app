@@ -24,3 +24,9 @@ import { types } from "../types/types";
             ...note
         }
   })
+
+
+  export const setNote = (notes) => ({
+    type:types.loadNote,
+    payload:notes
+  })
