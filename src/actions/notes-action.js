@@ -1,5 +1,6 @@
 import { db } from "../firebase/firebase-config";
 import { types } from "../types/types";
+import Swal from 'sweetalert2';
 
 
 /* Asyncrunus actions */
@@ -47,6 +48,8 @@ import { types } from "../types/types";
       delete noteToFireStore.id;
       try {
         await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFireStore);        
+        dispatch(refreshNote(note.id, noteToFireStore));
+        Swal.fire('Note was Saved',note.title, 'success');
       } catch (error) {
         console.log("Error on update note >: ",error);
       }
@@ -54,6 +57,18 @@ import { types } from "../types/types";
   };
 
   /* Synconus */
+
+
+  export const refreshNote = (id, note) => ({
+    type: types.updatedNotes,
+    payload:{
+      id,
+      note:{
+        id,
+        ...note
+      }
+    }
+  });
 
   export const activeNote = ( id, note ) => ({
         type: types.noteActive,
