@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { activeNote } from "../../actions/notes-action";
 import { useForm } from "../../hooks/useForm";
 import { NotesApp } from "./NotesApp";
 
@@ -7,7 +8,7 @@ export const NoteScreen = () => {
 
   const {active:noteActive} = useSelector(state => state.notes);
   const [values,handleInputchange, reset] = useForm(noteActive);
-
+  const dispatch = useDispatch();
   const activeId = useRef(noteActive.id);
 
   useEffect(()=>{
@@ -17,6 +18,14 @@ export const NoteScreen = () => {
     }
   },[noteActive,reset]);
 
+  /* Update data when user is writting */
+  useEffect(() => {
+    dispatch(activeNote(values.id,{...values}));
+    
+  }, [values, dispatch])
+
+
+  /* Extract data from useFrom hook */
   const {
     title,
     body,

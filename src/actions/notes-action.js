@@ -3,9 +3,10 @@ import { types } from "../types/types";
 
 
 /* Asyncrunus actions */
+/* Are executed by middleware thunk and propones 'dispatch' */
   export const newEntryAction = () => {
       return async (dispatch, getState) => {
-        const uid = getState().auth.uid;
+        const uid = getState().auth.uid; //current state from reducer 'auth'
         
         const newNote = {
             title:'',
@@ -32,6 +33,27 @@ import { types } from "../types/types";
     }
   }
 
+
+  export const updateDataOnBDD = (note) => {
+    return async (dispatch, getState) => {
+      const {uid} = getState().auth;
+      
+      if( !note.url ){
+        delete note.url;
+      }
+      
+      const noteToFireStore = {...note};
+      //Delete id property it is not necessary 
+      delete noteToFireStore.id;
+      try {
+        await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFireStore);        
+      } catch (error) {
+        console.log("Error on update note >: ",error);
+      }
+    }
+  };
+
+  /* Synconus */
 
   export const activeNote = ( id, note ) => ({
         type: types.noteActive,
