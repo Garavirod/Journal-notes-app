@@ -57,7 +57,7 @@ import Swal from 'sweetalert2';
   };
 
   /* Synconus */
-
+/* react-journal */
 
   export const refreshNote = (id, note) => ({
     type: types.updatedNotes,
