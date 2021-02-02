@@ -1,6 +1,7 @@
 import { db } from "../firebase/firebase-config";
 import { types } from "../types/types";
 import Swal from 'sweetalert2';
+import { fileUpload } from "../helpers/loadNotes";
 
 
 /* Asyncrunus actions */
@@ -53,6 +54,14 @@ import Swal from 'sweetalert2';
       } catch (error) {
         console.log("Error on update note >: ",error);
       }
+    }
+  };
+
+
+  export const startUploading = (file) => {
+    return async (dispatch, getState) => {
+      const {active:activeNote} = getState().notes;
+      const fileURL = await fileUpload(file);
     }
   };
 
